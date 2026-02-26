@@ -6,6 +6,8 @@
     <title>Shridatt - Nurturing Health, Naturally</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap');
 
@@ -28,30 +30,19 @@
         }
 
         .hero-gradient {
-            background: linear-gradient(135deg, #2d5a27 0%, #1e3a1a 100%);
+            background: linear-gradient(135deg, #2d5a27 0%, #173114 100%);
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .product-image-container {
+            overflow: hidden;
+        }
+        
+        .product-image-container img {
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .product-card:hover .product-overlay {
-            opacity: 1;
-        }
-
-        .shridatt-logo {
-            color: var(--primary-green);
-            font-size: 2.5rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .leaf-icon {
-            color: var(--accent-green);
+        .product-card:hover .product-image-container img {
+            transform: scale(1.1);
         }
 
         .benefit-tag {
@@ -79,140 +70,182 @@
 <body class="overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <span class="text-3xl font-bold text-[#2d5a27] brand-font">Shridatt</span>
-                <span class="text-xs text-gray-500 hidden md:block italic">Nurturing Health, Naturally</span>
+            <div class="flex items-center gap-2" data-aos="fade-right">
+                <span class="text-3xl font-bold text-[#2d5a27] brand-font tracking-tight">Shridatt</span>
+                <span class="text-xs text-gray-500 hidden md:block italic border-l pl-2 border-gray-300">Nurturing Health, Naturally</span>
             </div>
             
-            <div class="hidden md:flex space-x-8 font-medium">
+            <div class="hidden md:flex space-x-8 font-medium" data-aos="fade-left">
                 <a href="#home" class="hover:text-[#8bc34a] transition">Home</a>
+                <a href="#about" class="hover:text-[#8bc34a] transition">Our Promise</a>
                 <a href="#products" class="hover:text-[#8bc34a] transition">Products</a>
                 <a href="#benefits" class="hover:text-[#8bc34a] transition">Benefits</a>
-                <a href="#contact" class="hover:text-[#8bc34a] transition">Contact</a>
+                <a href="#contact" class="bg-[#2d5a27] text-white px-5 py-2 rounded-full hover:bg-[#8bc34a] transition shadow-md">Contact</a>
             </div>
 
-            <button class="md:hidden text-2xl" onclick="toggleMenu()">
+            <button class="md:hidden text-2xl text-[#2d5a27]" onclick="toggleMenu()">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] flex-col items-center justify-center space-y-8 text-2xl hidden">
-        <button class="absolute top-6 right-6" onclick="toggleMenu()"><i class="fas fa-times"></i></button>
-        <a href="#home" onclick="toggleMenu()">Home</a>
-        <a href="#products" onclick="toggleMenu()">Products</a>
-        <a href="#benefits" onclick="toggleMenu()">Benefits</a>
-        <a href="#contact" onclick="toggleMenu()">Contact</a>
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] flex-col items-center justify-center space-y-8 text-2xl hidden opacity-0 transition-opacity duration-300">
+        <button class="absolute top-6 right-6 text-[#2d5a27] text-3xl" onclick="toggleMenu()"><i class="fas fa-times"></i></button>
+        <a href="#home" onclick="toggleMenu()" class="brand-font">Home</a>
+        <a href="#about" onclick="toggleMenu()" class="brand-font">Our Promise</a>
+        <a href="#products" onclick="toggleMenu()" class="brand-font">Products</a>
+        <a href="#benefits" onclick="toggleMenu()" class="brand-font">Benefits</a>
+        <a href="#contact" onclick="toggleMenu()" class="brand-font text-[#8bc34a]">Contact</a>
     </div>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-32 pb-20 px-6 hero-gradient text-white overflow-hidden relative">
+    <section id="home" class="pt-32 pb-20 px-6 hero-gradient text-white overflow-hidden relative min-h-[90vh] flex items-center">
         <div class="container mx-auto flex flex-col md:flex-row items-center relative z-10">
-            <div class="md:w-1/2 mb-12 md:mb-0">
-                <h1 class="text-5xl md:text-7xl mb-6 leading-tight">Pure, Cold Pressed <br><span class="text-[#8bc34a]">& Natural</span></h1>
-                <p class="text-lg text-gray-200 mb-8 max-w-lg leading-relaxed">
-                    Discover the essence of wellness with Shridatt's premium organic oils and food products. Authentically sourced and cold-pressed to retain every drop of nature's goodness.
+            <div class="md:w-1/2 mb-12 md:mb-0" data-aos="fade-up" data-aos-duration="1000">
+                <div class="inline-block bg-[#8bc34a]/20 text-[#8bc34a] px-4 py-1 rounded-full text-sm font-bold mb-6 border border-[#8bc34a]/30">
+                    <i class="fas fa-leaf mr-2"></i> 100% Pure & Natural
+                </div>
+                <h1 class="text-5xl md:text-7xl mb-6 leading-tight font-bold">Nature's Best, <br><span class="text-[#8bc34a]">Cold Pressed</span></h1>
+                <p class="text-lg text-gray-200 mb-8 max-w-lg leading-relaxed font-light">
+                    Discover the essence of wellness with Shridatt's premium organic oils, superfoods, and wellness products. Authentically sourced to retain every drop of nature's goodness.
                 </p>
-                <div class="flex gap-4">
-                    <a href="#products" class="bg-[#8bc34a] text-[#1a2e1a] px-8 py-3 rounded-full font-bold hover:bg-white transition duration-300">View Catalog</a>
-                    <a href="#contact" class="border border-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-[#2d5a27] transition duration-300">Contact Us</a>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#products" class="bg-[#8bc34a] text-[#1a2e1a] px-8 py-4 rounded-full font-bold hover:bg-white transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">Explore Products</a>
+                    <a href="#contact" class="border-2 border-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-[#2d5a27] transition duration-300">Get in Touch</a>
                 </div>
             </div>
-            <div class="md:w-1/2 relative">
-                <div class="w-full h-[400px] bg-white/10 rounded-3xl overflow-hidden flex items-center justify-center">
-                    <!-- Placeholder for the main product collage from image 1000552367.jpg -->
-                    <div class="text-center p-10">
-                        <i class="fas fa-leaf text-8xl text-[#8bc34a] mb-4 opacity-50"></i>
-                        <h2 class="text-3xl brand-font">100% Pure & Natural</h2>
-                        <p class="text-sm opacity-70 mt-2">Certified Organic Food Products</p>
+            <div class="md:w-1/2 relative w-full" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="200">
+                <div class="w-full h-[500px] bg-white rounded-3xl overflow-hidden shadow-2xl relative">
+                    <!-- Attempt to use main brochure image, fallback to beautiful organic food image -->
+                    <img src="1000552367.jpg" alt="Shridatt Products" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&q=80&w=800'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
+                        <div>
+                            <h2 class="text-3xl brand-font text-white mb-2">FSSAI Certified</h2>
+                            <p class="text-gray-200">Lic No: 11225312000424</p>
+                        </div>
                     </div>
+                </div>
+                <!-- Floating decorative badges -->
+                <div class="absolute -right-6 top-10 bg-white text-[#2d5a27] p-4 rounded-2xl shadow-xl flex items-center gap-3 animate-bounce" style="animation-duration: 3s;">
+                    <i class="fas fa-shield-alt text-2xl text-[#8bc34a]"></i>
+                    <div class="font-bold text-sm">Premium<br>Quality</div>
                 </div>
             </div>
         </div>
         <!-- Decorative blobs -->
-        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-[#8bc34a]/20 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-48 -left-48 w-96 h-96 bg-[#8bc34a]/30 rounded-full blur-[100px]"></div>
+        <div class="absolute top-20 right-20 w-64 h-64 bg-[#ffffff]/10 rounded-full blur-[80px]"></div>
+    </section>
+
+    <!-- About / Promise Section -->
+    <section id="about" class="py-20 px-6 bg-white relative">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2 grid grid-cols-2 gap-4" data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=400" alt="Spices" class="rounded-2xl shadow-lg w-full h-48 object-cover mt-8">
+                    <img src="https://images.unsplash.com/photo-1628151015968-3a4429e9efeb?auto=format&fit=crop&q=80&w=400" alt="Oils" class="rounded-2xl shadow-lg w-full h-48 object-cover">
+                </div>
+                <div class="md:w-1/2" data-aos="fade-left">
+                    <h4 class="text-[#8bc34a] font-bold tracking-widest uppercase mb-2">Our Promise</h4>
+                    <h2 class="text-4xl brand-font mb-6 text-[#2d5a27]">Authentic, Unprocessed, & Wholesome</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        At Shridatt, we believe that true health comes directly from nature. Our products are meticulously sourced and processed using traditional methods like cold-pressing to ensure that every nutrient, aroma, and benefit is preserved.
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-[#8bc34a] text-xl"></i> Zero Preservatives or Chemicals</li>
+                        <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-[#8bc34a] text-xl"></i> Traditional Cold-Pressed Extraction</li>
+                        <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-[#8bc34a] text-xl"></i> Sourced from Ethical Organic Farms</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Categories Grid -->
-    <section id="products" class="py-24 px-6 bg-white">
+    <section id="products" class="py-24 px-6 bg-[#f9fbf9]">
         <div class="container mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl mb-4">Our Premium Selection</h2>
-                <div class="w-24 h-1 bg-[#8bc34a] mx-auto mb-6"></div>
-                <p class="text-gray-600 max-w-2xl mx-auto">Explore our diverse range of cold-pressed oils, superfoods, and wellness products designed for your holistic health.</p>
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl mb-4 brand-font text-[#2d5a27]">Our Premium Selection</h2>
+                <div class="w-24 h-1 bg-[#8bc34a] mx-auto mb-6 rounded-full"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Explore our diverse range of cold-pressed oils, superfoods, and wellness products designed for your holistic health. Click 'View Details' for ingredients and benefits.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
-                <!-- Products will be injected by JS -->
+            <!-- Products injected by JS -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="product-grid">
+                
             </div>
         </div>
     </section>
 
     <!-- Benefit Showcase (Based on Image 1000552370.jpg) -->
-    <section id="benefits" class="py-24 px-6 bg-[#f0f4f0]">
-        <div class="container mx-auto">
-            <h2 class="text-4xl text-center mb-16">Why Choose Shridatt?</h2>
+    <section id="benefits" class="py-24 px-6 bg-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="container mx-auto relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl mb-4 brand-font text-[#2d5a27]">Why Choose Shridatt?</h2>
+                <p class="text-gray-500">Holistic benefits wrapped in every single product.</p>
+            </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <!-- Benefit Item -->
-                <div class="flex gap-6 p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition">
-                    <div class="bg-[#2d5a27] text-white w-16 h-16 rounded-xl flex items-center justify-center shrink-0">
-                        <i class="fas fa-oil-can text-2xl"></i>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                <!-- Benefit Item 1 -->
+                <div class="flex flex-col sm:flex-row gap-6 p-8 bg-[#f9fbf9] rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-[#2d5a27] text-white w-20 h-20 rounded-2xl flex items-center justify-center shrink-0 shadow-lg">
+                        <i class="fas fa-tint text-3xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-2xl mb-2">Cold Pressed Oils</h3>
-                        <p class="text-gray-600 mb-3">Antibacterial powerhouses that create a natural barrier against bacteria while deeply moisturizing the skin.</p>
+                        <h3 class="text-2xl mb-2 brand-font text-[#2d5a27]">Cold Pressed Oils</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">Antibacterial powerhouses that create a natural barrier against bacteria while deeply moisturizing and protecting the skin.</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="benefit-tag">Antibacterial</span>
-                            <span class="benefit-tag">Moisturizing</span>
+                            <span class="benefit-tag"><i class="fas fa-shield-virus mr-1"></i> Antibacterial</span>
+                            <span class="benefit-tag"><i class="fas fa-droplet mr-1"></i> Moisturizing</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Benefit Item -->
-                <div class="flex gap-6 p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition">
-                    <div class="bg-[#2d5a27] text-white w-16 h-16 rounded-xl flex items-center justify-center shrink-0">
-                        <i class="fas fa-seedling text-2xl"></i>
+                <!-- Benefit Item 2 -->
+                <div class="flex flex-col sm:flex-row gap-6 p-8 bg-[#f9fbf9] rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-[#2d5a27] text-white w-20 h-20 rounded-2xl flex items-center justify-center shrink-0 shadow-lg">
+                        <i class="fas fa-seedling text-3xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-2xl mb-2">Super Seeds (Chia/Flax)</h3>
-                        <p class="text-gray-600 mb-3">Rich in Omega-3s and fiber, aiding in heart health, brain function, and blood sugar control.</p>
+                        <h3 class="text-2xl mb-2 brand-font text-[#2d5a27]">Super Seeds</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">Flax and Chia seeds rich in Omega-3s and fiber, aiding in heart health, brain function, and improved blood sugar control.</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="benefit-tag">Omega-3 Rich</span>
-                            <span class="benefit-tag">Heart Health</span>
+                            <span class="benefit-tag"><i class="fas fa-heart mr-1"></i> Heart Health</span>
+                            <span class="benefit-tag"><i class="fas fa-brain mr-1"></i> Omega-3s</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Benefit Item -->
-                <div class="flex gap-6 p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition">
-                    <div class="bg-[#2d5a27] text-white w-16 h-16 rounded-xl flex items-center justify-center shrink-0">
-                        <i class="fas fa-wind text-2xl"></i>
+                <!-- Benefit Item 3 -->
+                <div class="flex flex-col sm:flex-row gap-6 p-8 bg-[#f9fbf9] rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-[#2d5a27] text-white w-20 h-20 rounded-2xl flex items-center justify-center shrink-0 shadow-lg">
+                        <i class="fas fa-wind text-3xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-2xl mb-2">Camphor & Fragrance</h3>
-                        <p class="text-gray-600 mb-3">Natural air fresheners that relieve congestion, purify the air, and calm the mind with soothing aromas.</p>
+                        <h3 class="text-2xl mb-2 brand-font text-[#2d5a27]">Camphor & Dhoopa</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">Natural air fresheners that relieve congestion, purify the air in enclosed spaces, and uplift your mood with soothing aromas.</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="benefit-tag">Air Purifier</span>
-                            <span class="benefit-tag">Mind Calming</span>
+                            <span class="benefit-tag"><i class="fas fa-lungs mr-1"></i> Purifies Air</span>
+                            <span class="benefit-tag"><i class="fas fa-om mr-1"></i> Calms Mind</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Benefit Item -->
-                <div class="flex gap-6 p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition">
-                    <div class="bg-[#2d5a27] text-white w-16 h-16 rounded-xl flex items-center justify-center shrink-0">
-                        <i class="fas fa-cube text-2xl"></i>
+                <!-- Benefit Item 4 -->
+                <div class="flex flex-col sm:flex-row gap-6 p-8 bg-[#f9fbf9] rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-[#2d5a27] text-white w-20 h-20 rounded-2xl flex items-center justify-center shrink-0 shadow-lg">
+                        <i class="fas fa-mortar-pestle text-3xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-2xl mb-2">Celtic Salt & Spices</h3>
-                        <p class="text-gray-600 mb-3">Enhances blood flow, reduces cholesterol, and acts as a natural pain killer.</p>
+                        <h3 class="text-2xl mb-2 brand-font text-[#2d5a27]">Salts, Spices & Herbs</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">Celtic Salt and Indian Kino help manage diabetes, reduce cholesterol, enhance blood flow, and act as natural pain killers.</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="benefit-tag">Cholesterol Control</span>
-                            <span class="benefit-tag">Natural Healing</span>
+                            <span class="benefit-tag"><i class="fas fa-arrow-down mr-1"></i> Lowers Cholesterol</span>
+                            <span class="benefit-tag"><i class="fas fa-plus-square mr-1"></i> Healing</span>
                         </div>
                     </div>
                 </div>
@@ -221,115 +254,184 @@
     </section>
 
     <!-- Floating Contact/Order Modal -->
-    <div id="product-modal" class="fixed inset-0 bg-black/60 z-[100] hidden items-center justify-center p-6 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-black transition">
+    <div id="product-modal" class="fixed inset-0 bg-black/70 z-[100] hidden items-center justify-center p-4 md:p-6 backdrop-blur-md opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-[2rem] max-w-4xl w-full overflow-hidden relative shadow-2xl flex flex-col md:flex-row max-h-[90vh] overflow-y-auto" id="modal-content">
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-white/80 backdrop-blur rounded-full w-10 h-10 flex items-center justify-center text-xl text-gray-600 hover:text-black hover:bg-gray-100 transition z-10 shadow">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="flex flex-col md:flex-row">
-                <div class="md:w-1/2 bg-gray-100 p-8 flex items-center justify-center">
-                    <img id="modal-img" src="" alt="Product" class="max-h-64 object-contain">
-                </div>
-                <div class="md:w-1/2 p-8">
-                    <span id="modal-tag" class="benefit-tag mb-4 inline-block">Category</span>
-                    <h3 id="modal-title" class="text-3xl mb-4 brand-font">Product Title</h3>
-                    <p id="modal-desc" class="text-gray-600 mb-6 leading-relaxed">Detailed product benefits and description goes here based on the images provided.</p>
-                    <div class="space-y-3 mb-8">
-                        <div class="flex items-center text-sm text-gray-500">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i> FSSAI Certified
-                        </div>
-                        <div class="flex items-center text-sm text-gray-500">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i> 100% Pure & Organic
-                        </div>
+            <div class="md:w-1/2 bg-[#f4f7f4] relative p-8 flex items-center justify-center min-h-[300px]">
+                <!-- Decorative background circle -->
+                <div class="absolute w-64 h-64 bg-white rounded-full shadow-lg"></div>
+                <img id="modal-img" src="" alt="Product" class="max-h-80 object-contain relative z-10 drop-shadow-2xl scale-110 transition-transform duration-500">
+            </div>
+            <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center bg-white">
+                <span id="modal-tag" class="benefit-tag mb-4 self-start">Category</span>
+                <h3 id="modal-title" class="text-4xl mb-4 brand-font text-[#2d5a27]">Product Title</h3>
+                <div class="w-16 h-1 bg-[#8bc34a] mb-6 rounded-full"></div>
+                <p id="modal-desc" class="text-gray-600 mb-8 leading-relaxed text-lg">Detailed product benefits and description goes here based on the images provided.</p>
+                
+                <div class="bg-[#f9fbf9] p-4 rounded-2xl space-y-3 mb-8 border border-green-100">
+                    <div class="flex items-center text-sm font-semibold text-[#2d5a27]">
+                        <i class="fas fa-certificate text-[#8bc34a] text-lg mr-3 w-6"></i> FSSAI Certified (Lic No: 11225312000424)
                     </div>
-                    <a id="modal-whatsapp" href="#" target="_blank" class="block text-center bg-[#25D366] text-white py-3 rounded-full font-bold hover:shadow-lg transition">
-                        Order via WhatsApp <i class="fab fa-whatsapp ml-2"></i>
-                    </a>
+                    <div class="flex items-center text-sm font-semibold text-[#2d5a27]">
+                        <i class="fas fa-leaf text-[#8bc34a] text-lg mr-3 w-6"></i> 100% Pure & Organic Ingredients
+                    </div>
+                    <div class="flex items-center text-sm font-semibold text-[#2d5a27]">
+                        <i class="fas fa-box-open text-[#8bc34a] text-lg mr-3 w-6"></i> Premium Packaging
+                    </div>
                 </div>
+
+                <a id="modal-whatsapp" href="#" target="_blank" class="block w-full text-center bg-gradient-to-r from-[#25D366] to-[#1da851] text-white py-4 rounded-full font-bold hover:shadow-lg hover:scale-[1.02] transition-all duration-300 text-lg">
+                    <i class="fab fa-whatsapp text-xl mr-2"></i> Order via WhatsApp 
+                </a>
             </div>
         </div>
     </div>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-24 px-6 bg-white">
-        <div class="container mx-auto max-w-5xl">
-            <div class="bg-[#2d5a27] text-white rounded-[3rem] p-12 md:p-20 overflow-hidden relative">
-                <div class="relative z-10 flex flex-col md:flex-row gap-12">
-                    <div class="md:w-1/2">
-                        <h2 class="text-4xl mb-6">Get In Touch</h2>
-                        <p class="text-gray-300 mb-8">Ready to nurture your health naturally? Reach out to us for orders, distribution, or queries.</p>
+    <section id="contact" class="py-24 px-6 bg-gray-50">
+        <div class="container mx-auto max-w-6xl">
+            <div class="bg-[#2d5a27] text-white rounded-[3rem] p-8 md:p-16 overflow-hidden relative shadow-2xl" data-aos="zoom-in" data-aos-duration="1000">
+                <div class="relative z-10 flex flex-col lg:flex-row gap-16">
+                    <div class="lg:w-1/2">
+                        <div class="inline-block bg-white/20 px-4 py-1 rounded-full text-sm font-bold mb-6 backdrop-blur-sm">
+                            Contact Us
+                        </div>
+                        <h2 class="text-4xl md:text-5xl mb-6 brand-font">Let's Get In Touch</h2>
+                        <p class="text-green-100 mb-10 text-lg">Ready to nurture your health naturally? Reach out to us for bulk orders, distributorship, or general queries.</p>
                         
-                        <div class="space-y-6">
-                            <div class="flex items-start gap-4">
-                                <div class="bg-white/10 p-3 rounded-lg"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="space-y-8">
+                            <div class="flex items-start gap-5 bg-white/5 p-4 rounded-2xl hover:bg-white/10 transition">
+                                <div class="bg-[#8bc34a] text-[#1a2e1a] w-12 h-12 rounded-full flex items-center justify-center shrink-0 text-xl"><i class="fas fa-map-marker-alt"></i></div>
                                 <div>
-                                    <h4 class="font-bold">Address</h4>
-                                    <p class="text-sm text-gray-300">3rd floor Vistar Commercial Complex,<br>Yeyyadi Mangalore 575008</p>
+                                    <h4 class="font-bold text-xl mb-1">Our Store</h4>
+                                    <p class="text-green-100">3rd floor Vistar Commercial Complex,<br>Yeyyadi Mangalore 575008</p>
                                 </div>
                             </div>
-                            <div class="flex items-start gap-4">
-                                <div class="bg-white/10 p-3 rounded-lg"><i class="fas fa-envelope"></i></div>
+                            <div class="flex items-start gap-5 bg-white/5 p-4 rounded-2xl hover:bg-white/10 transition">
+                                <div class="bg-[#8bc34a] text-[#1a2e1a] w-12 h-12 rounded-full flex items-center justify-center shrink-0 text-xl"><i class="fas fa-envelope"></i></div>
                                 <div>
-                                    <h4 class="font-bold">Email</h4>
-                                    <p class="text-sm text-gray-300">care@shridatt.com</p>
+                                    <h4 class="font-bold text-xl mb-1">Email Us</h4>
+                                    <p class="text-green-100">care@shridatt.com</p>
                                 </div>
                             </div>
-                            <div class="flex items-start gap-4">
-                                <div class="bg-white/10 p-3 rounded-lg"><i class="fas fa-phone"></i></div>
+                            <div class="flex items-start gap-5 bg-white/5 p-4 rounded-2xl hover:bg-white/10 transition">
+                                <div class="bg-[#8bc34a] text-[#1a2e1a] w-12 h-12 rounded-full flex items-center justify-center shrink-0 text-xl"><i class="fas fa-phone-alt"></i></div>
                                 <div>
-                                    <h4 class="font-bold">Phone</h4>
-                                    <p class="text-sm text-gray-300">807 389 9199 | 736 203 6202</p>
+                                    <h4 class="font-bold text-xl mb-1">Call Us</h4>
+                                    <p class="text-green-100">+91 807 389 9199<br>+91 736 203 6202</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="md:w-1/2">
-                        <form id="contact-form" class="space-y-4">
-                            <input type="text" placeholder="Your Name" class="w-full bg-white/10 border border-white/20 rounded-xl px-6 py-4 focus:outline-none focus:border-[#8bc34a]">
-                            <input type="email" placeholder="Email Address" class="w-full bg-white/10 border border-white/20 rounded-xl px-6 py-4 focus:outline-none focus:border-[#8bc34a]">
-                            <textarea rows="4" placeholder="Your Message" class="w-full bg-white/10 border border-white/20 rounded-xl px-6 py-4 focus:outline-none focus:border-[#8bc34a]"></textarea>
-                            <button class="w-full bg-white text-[#2d5a27] font-bold py-4 rounded-xl hover:bg-[#8bc34a] hover:text-white transition duration-300">Send Message</button>
+                    <div class="lg:w-1/2">
+                        <form id="contact-form" class="space-y-5 bg-white p-8 rounded-3xl shadow-xl text-gray-800 h-full flex flex-col justify-center">
+                            <h3 class="text-2xl brand-font text-[#2d5a27] mb-4">Send a Message</h3>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-600 mb-1 ml-1">Full Name</label>
+                                <input type="text" placeholder="John Doe" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-[#8bc34a] focus:bg-white transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-600 mb-1 ml-1">Email Address</label>
+                                <input type="email" placeholder="john@example.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-[#8bc34a] focus:bg-white transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-600 mb-1 ml-1">Message</label>
+                                <textarea rows="4" placeholder="How can we help you today?" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-[#8bc34a] focus:bg-white transition resize-none"></textarea>
+                            </div>
+                            <button type="button" class="w-full bg-[#2d5a27] text-white font-bold py-4 rounded-xl hover:bg-[#1a3816] transition duration-300 shadow-md flex items-center justify-center gap-2 mt-2">
+                                Send Message <i class="fas fa-paper-plane"></i>
+                            </button>
                         </form>
                     </div>
                 </div>
-                <!-- Background decorative element -->
-                <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-20 -mt-20"></div>
+                <!-- Background decorative elements -->
+                <div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#8bc34a]/30 to-transparent rounded-full -mr-20 -mt-20"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-black/20 to-transparent rounded-full -ml-20 -mb-20"></div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-12 px-6">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center border-b border-gray-800 pb-8 mb-8">
-            <div class="mb-6 md:mb-0">
-                <span class="text-2xl font-bold text-white brand-font">Shridatt</span>
-                <p class="text-sm mt-2">Nurturing Health, Naturally</p>
+    <footer class="bg-[#112410] text-gray-400 py-16 px-6 relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-5 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] pointer-events-none"></div>
+        <div class="container mx-auto flex flex-col lg:flex-row justify-between items-start border-b border-gray-800 pb-12 mb-8 gap-12 relative z-10">
+            <div class="lg:w-1/3">
+                <span class="text-4xl font-bold text-white brand-font mb-4 block tracking-wide">Shridatt</span>
+                <p class="text-gray-400 mb-6 leading-relaxed">Nurturing Health, Naturally. Your trusted partner for 100% pure, organic, and cold-pressed food and wellness products.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#8bc34a] hover:text-white transition duration-300 text-lg"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#8bc34a] hover:text-white transition duration-300 text-lg"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#8bc34a] hover:text-white transition duration-300 text-lg"><i class="fab fa-whatsapp"></i></a>
+                </div>
             </div>
-            <div class="flex space-x-6 text-xl">
-                <a href="#" class="hover:text-white transition"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="hover:text-white transition"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="hover:text-white transition"><i class="fab fa-whatsapp"></i></a>
+            
+            <div class="lg:w-2/3 flex flex-col sm:flex-row gap-12 sm:justify-end w-full">
+                <div>
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="hover:text-[#8bc34a] transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-[#8bc34a] transition">About Us</a></li>
+                        <li><a href="#products" class="hover:text-[#8bc34a] transition">All Products</a></li>
+                        <li><a href="#benefits" class="hover:text-[#8bc34a] transition">Health Benefits</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Categories</h4>
+                    <ul class="space-y-3">
+                        <li><span class="hover:text-[#8bc34a] transition cursor-pointer">Cold Pressed Oils</span></li>
+                        <li><span class="hover:text-[#8bc34a] transition cursor-pointer">Super Foods & Seeds</span></li>
+                        <li><span class="hover:text-[#8bc34a] transition cursor-pointer">Wellness & Aromatics</span></li>
+                        <li><span class="hover:text-[#8bc34a] transition cursor-pointer">Organic Spices</span></li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="container mx-auto flex flex-col md:flex-row justify-between text-xs">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-sm relative z-10 text-gray-500">
             <p>&copy; 2024 Shridatt Organic Products. All rights reserved.</p>
-            <div class="flex space-x-4 mt-4 md:mt-0">
-                <a href="#" class="hover:underline">Privacy Policy</a>
-                <a href="#" class="hover:underline">Terms of Service</a>
-                <p>FSSAI Lic No: 11225312000424</p>
+            <div class="flex flex-wrap justify-center gap-4 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <span>|</span>
+                <a href="#" class="hover:text-white transition">Terms of Service</a>
+                <span>|</span>
+                <p class="text-[#8bc34a]">FSSAI: 11225312000424</p>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script>
+        // AOS Initialization
+        AOS.init({
+            once: true, // whether animation should happen only once - while scrolling down
+            offset: 50, // offset (in px) from the original trigger point
+            duration: 800, // values from 0 to 3000, with step 50ms
+            easing: 'ease-out-cubic', // default easing for AOS animations
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md', 'py-2');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.remove('shadow-md', 'py-2');
+                nav.classList.add('py-4');
+            }
+        });
+
+        // Expanded Product List containing all requested products and user images
+        // The 'image' maps to the files uploaded. The 'fallback' is a gorgeous unsplash image if the local file isn't found.
         const products = [
             {
                 id: 1,
                 title: "Cold Pressed Coconut Oil",
                 category: "Pure Oils",
                 desc: "Antibacterial powerhouse. Creates a barrier against bacteria build-up. Moisturizes the skin and protects against irritation like eczema.",
-                image: "1000552378.jpg", // Placeholder name based on upload
-                color: "#e2f0d9"
+                image: "1000552378.jpg", 
+                fallback: "https://images.unsplash.com/photo-1611078488880-60a66d54cd5d?auto=format&fit=crop&q=80&w=500"
             },
             {
                 id: 2,
@@ -337,23 +439,23 @@
                 category: "Pure Oils",
                 desc: "Rich in therapeutic medical properties. Promotes healthy bones, skin, and immune system. Helps in lowering cholesterol.",
                 image: "1000552380.jpg",
-                color: "#fdf2e9"
+                fallback: "https://images.unsplash.com/photo-1599305090598-fe179d501227?auto=format&fit=crop&q=80&w=500"
             },
             {
                 id: 3,
                 title: "Celtic Salt",
-                category: "Super Foods",
+                category: "Spices & Salts",
                 desc: "Reduces Cholesterol, helps in burning calories, and acts as a natural pain killer. Enhances the flow of fresh blood.",
                 image: "1000552388.jpg",
-                color: "#f4f4f4"
+                fallback: "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?auto=format&fit=crop&q=80&w=500"
             },
             {
                 id: 4,
                 title: "Chilly Powder",
-                category: "Spices",
+                category: "Organic Spices",
                 desc: "Enhances blood flow, reduces cholesterol, and helps in burning calories naturally. High-grade purity.",
                 image: "1000552387.jpg",
-                color: "#fff1f1"
+                fallback: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=500"
             },
             {
                 id: 5,
@@ -361,7 +463,7 @@
                 category: "Wellness",
                 desc: "Natural air freshener and insect repellent. Helps in relieving congestion and enhances focus while calming the mind.",
                 image: "1000552374.jpg",
-                color: "#f0f7ff"
+                fallback: "https://images.unsplash.com/photo-1608520697220-4054a3a60a0d?auto=format&fit=crop&q=80&w=500"
             },
             {
                 id: 6,
@@ -369,41 +471,88 @@
                 category: "Wellness",
                 desc: "Long lasting fragrance that uplifts mood and purifies the ambiance. Pure and natural, perfect for Poojas.",
                 image: "1000552376.jpg",
-                color: "#fdf9f0"
+                fallback: "https://images.unsplash.com/photo-1602351447937-745cb720612f?auto=format&fit=crop&q=80&w=500"
+            },
+            {
+                id: 7,
+                title: "Camphor Slab",
+                category: "Wellness",
+                desc: "Ideal for Aromatherapy, Pooja & Hawan, Meditation, and natural Air purification. Relieves stress effectively.",
+                image: "1000552372.jpg",
+                fallback: "https://images.unsplash.com/photo-1526568929-2fa22e17b3eb?auto=format&fit=crop&q=80&w=500"
+            },
+            {
+                id: 8,
+                title: "Raw Honey",
+                category: "Super Foods",
+                desc: "Boosts immunity & energy. A natural antibacterial agent that soothes sore throats and promotes digestive health.",
+                image: "demo",
+                fallback: "https://images.unsplash.com/photo-1587049352847-4d4b1ab7cb55?auto=format&fit=crop&q=80&w=500"
+            },
+            {
+                id: 9,
+                title: "Chia Seeds",
+                category: "Super Foods",
+                desc: "Improves blood sugar control, lowers blood pressure, and significantly increases fiber intake for better digestion.",
+                image: "demo",
+                fallback: "https://images.unsplash.com/photo-1600189021966-2244224d0393?auto=format&fit=crop&q=80&w=500"
+            },
+            {
+                id: 10,
+                title: "Flax Seeds",
+                category: "Super Foods",
+                desc: "Rich in lignans and omega-3s. Supports heart and brain health while aiding in weight management.",
+                image: "demo",
+                fallback: "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&q=80&w=500"
+            },
+            {
+                id: 11,
+                title: "Indian Kino",
+                category: "Herbs",
+                desc: "Known for gum and oral health. Supports digestive functions and serves as a traditional natural blood purifier.",
+                image: "demo",
+                fallback: "https://images.unsplash.com/photo-1615486171448-4fdac707297e?auto=format&fit=crop&q=80&w=500"
+            },
+            {
+                id: 12,
+                title: "Almond Oil",
+                category: "Pure Oils",
+                desc: "Premium cold pressed oil. Rich in Vitamin E, perfect for glowing skin nourishment and promoting strong hair growth.",
+                image: "demo",
+                fallback: "https://images.unsplash.com/photo-1628151015968-3a4429e9efeb?auto=format&fit=crop&q=80&w=500"
             }
         ];
 
         function renderProducts() {
             const grid = document.getElementById('product-grid');
-            grid.innerHTML = products.map(p => `
-                <div class="product-card group relative bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-500 flex flex-col">
-                    <div class="h-64 flex items-center justify-center p-8 bg-gray-50 group-hover:bg-white transition duration-500">
-                        <!-- We use FontAwesome as visual placeholders since we don't have direct path access, but we title them correctly -->
-                        <div class="text-center">
-                            <i class="fas ${getIcon(p.category)} text-6xl text-gray-200 mb-4"></i>
-                            <div class="text-xs text-gray-400">Pure Shridatt Product</div>
+            let delay = 0;
+            
+            grid.innerHTML = products.map((p, index) => {
+                // Stagger animations for grid
+                delay = (index % 4) * 100;
+                
+                return `
+                <div class="product-card group relative bg-white border border-gray-100 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col" data-aos="fade-up" data-aos-delay="${delay}">
+                    <div class="h-64 product-image-container relative bg-[#f4f7f4] flex items-center justify-center p-6">
+                        <!-- Try to load actual file, fallback to professional Unsplash image -->
+                        <img src="${p.image}" alt="${p.title}" class="w-full h-full object-contain mix-blend-multiply filter contrast-110" onerror="this.onerror=null; this.src='${p.fallback}'; this.classList.remove('object-contain', 'mix-blend-multiply'); this.classList.add('object-cover', 'w-full', 'h-full');">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition duration-500"></div>
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-[#2d5a27] w-10 h-10 rounded-full flex items-center justify-center shadow-md transform translate-x-12 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus"></i>
                         </div>
                     </div>
-                    <div class="p-8 flex-grow">
-                        <span class="text-xs font-bold uppercase tracking-widest text-[#8bc34a]">${p.category}</span>
-                        <h3 class="text-2xl mt-2 mb-3 brand-font">${p.title}</h3>
-                        <p class="text-gray-500 text-sm line-clamp-2">${p.desc}</p>
+                    <div class="p-8 flex-grow bg-white relative z-10">
+                        <span class="text-xs font-bold uppercase tracking-widest text-[#8bc34a] bg-[#8bc34a]/10 px-3 py-1 rounded-full">${p.category}</span>
+                        <h3 class="text-2xl mt-4 mb-3 brand-font text-gray-800 leading-tight">${p.title}</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2 leading-relaxed">${p.desc}</p>
                     </div>
-                    <div class="px-8 pb-8 mt-auto">
-                        <button onclick="openModal(${p.id})" class="w-full border-2 border-[#2d5a27] text-[#2d5a27] font-bold py-3 rounded-xl group-hover:bg-[#2d5a27] group-hover:text-white transition duration-300">
-                            Learn More
+                    <div class="px-8 pb-8 mt-auto bg-white">
+                        <button onclick="openModal(${p.id})" class="w-full border-2 border-gray-200 text-gray-600 font-bold py-3.5 rounded-xl group-hover:border-[#2d5a27] group-hover:bg-[#2d5a27] group-hover:text-white transition-all duration-300 shadow-sm">
+                            View Details
                         </button>
                     </div>
                 </div>
-            `).join('');
-        }
-
-        function getIcon(cat) {
-            if (cat === "Pure Oils") return "fa-tint";
-            if (cat === "Super Foods") return "fa-bowl-rice";
-            if (cat === "Wellness") return "fa-spa";
-            if (cat === "Spices") return "fa-pepper-hot";
-            return "fa-leaf";
+            `}).join('');
         }
 
         function openModal(id) {
@@ -411,30 +560,53 @@
             document.getElementById('modal-title').innerText = p.title;
             document.getElementById('modal-desc').innerText = p.desc;
             document.getElementById('modal-tag').innerText = p.category;
-            document.getElementById('modal-img').src = `https://via.placeholder.com/300/f0f4f0/2d5a27?text=${encodeURIComponent(p.title)}`; // Using placeholder for visual logic
-            document.getElementById('modal-whatsapp').href = `https://wa.me/918073899199?text=I'm%20interested%20in%20${encodeURIComponent(p.title)}`;
+            
+            // Set image with fallback logic for the modal as well
+            const modalImg = document.getElementById('modal-img');
+            modalImg.src = p.image;
+            modalImg.onerror = function() {
+                this.onerror = null;
+                this.src = p.fallback;
+                this.classList.remove('object-contain');
+                this.classList.add('object-cover', 'rounded-2xl', 'shadow-lg');
+            };
+
+            // Setup Whatsapp Link
+            const message = `Hello Shridatt! I'm interested in ordering the *${p.title}* from your organic catalog.`;
+            document.getElementById('modal-whatsapp').href = `https://wa.me/918073899199?text=${encodeURIComponent(message)}`;
             
             const modal = document.getElementById('product-modal');
             modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            // Small delay to allow display block before opacity transition
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             const modal = document.getElementById('product-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.style.overflow = 'auto';
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300); // Wait for opacity transition
         }
 
         function toggleMenu() {
             const menu = document.getElementById('mobile-menu');
             if(menu.classList.contains('hidden')) {
                 menu.classList.remove('hidden');
+                setTimeout(() => {
+                    menu.classList.remove('opacity-0');
+                }, 10);
                 menu.classList.add('flex');
             } else {
-                menu.classList.add('hidden');
-                menu.classList.remove('flex');
+                menu.classList.add('opacity-0');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                    menu.classList.remove('flex');
+                }, 300);
             }
         }
 
